@@ -111,6 +111,21 @@ impl Brain {
     /// ```
     ///
     pub fn from_dataset(&mut self, dataset_path: impl AsRef<str>) -> Result<&mut Self> {
+        // let dataset_path = dataset_path.as_ref();
+
+        // let dataset_file = File::open(dataset_path)?;
+        // let mut lines = BufReader::new(dataset_file).lines();
+
+        // while let Some(Ok(line)) = lines.next() {
+        //     self.ingest(&line);
+        // }
+
+        self.ingest_file(dataset_file);
+
+        Ok(self)
+    }
+
+    pub fn ingest_file(&mut self, dataset_path: dataset_path: impl AsRef<str>) {
         let dataset_path = dataset_path.as_ref();
 
         let dataset_file = File::open(dataset_path)?;
@@ -119,8 +134,6 @@ impl Brain {
         while let Some(Ok(line)) = lines.next() {
             self.ingest(&line);
         }
-
-        Ok(self)
     }
 
     // let the brain learn from a text line.
