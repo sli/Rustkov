@@ -113,7 +113,6 @@ impl Brain {
     pub fn from_dataset(&mut self, dataset_path: impl AsRef<str>) -> Result<&mut Self> {
         let dataset_path = dataset_path.as_ref();
 
-        // println!("Getting a new brain from '{}`...", dataset_path);
         let dataset_file = File::open(dataset_path)?;
         let mut lines = BufReader::new(dataset_file).lines();
 
@@ -190,14 +189,12 @@ impl Brain {
     ///
     pub fn to_file(&self, output_path: impl AsRef<str>) -> Result<()> {
         let output_path = output_path.as_ref();
-        // println!("Saving brain...");
 
         let serialized = bincode::serialize(&self.state_transitions).unwrap();
         let mut output_file = File::create(output_path)?;
 
         output_file.write(&serialized)?;
 
-        // println!("Saved brain as {}", output_path);
         Ok(())
     }
 
@@ -219,7 +216,6 @@ impl Brain {
     pub fn from_file(brain_path: impl AsRef<str>) -> Result<Self> {
         let brain_path = brain_path.as_ref();
 
-        // println!("Loading brain from {}...", brain_path);
         let mut save_file = File::open(brain_path)?;
         let mut buffer: Vec<u8> = vec![];
 
