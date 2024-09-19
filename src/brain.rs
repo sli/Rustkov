@@ -124,7 +124,7 @@ impl Brain {
     }
 
     // let the brain learn from a text line.
-    fn ingest(&mut self, line: &str) {
+    pub fn ingest(&mut self, line: &str) {
         let line = line.to_lowercase();
 
         // We get the input as str, turn it into a vec of StateElement
