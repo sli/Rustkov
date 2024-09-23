@@ -111,7 +111,7 @@ impl BrainConfig {
     pub fn to_file(&self, config_path: &str) -> Result<()> {
         let mut config_file = OpenOptions::new().write(true).open(config_path)?;
 
-        let data = toml::to_string(&self).unwrap();
+        let data = toml::to_string_pretty(&self).unwrap();
 
         config_file.write(data.as_bytes())?;
 
