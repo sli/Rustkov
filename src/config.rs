@@ -17,7 +17,7 @@ pub const SPLIT_CHARS: [char; 2] = [' ', '\n'];
 ///     ..Default::default()
 /// };
 /// // Or:
-/// let config = BrainConfig::from_file("path/to/config.yml").unwrap();
+/// let config = BrainConfig::from_file("path/to/config.toml").unwrap();
 ///
 /// ```
 ///
@@ -84,7 +84,7 @@ impl BrainConfig {
     /// ```
     /// use rustkov::prelude::BrainConfig;
     ///
-    /// let config = BrainConfig::from_file("path/to/config.yml").unwrap();
+    /// let config = BrainConfig::from_file("path/to/config.toml").unwrap();
     ///
     /// ```
     pub fn from_file(config_path: impl AsRef<str>) -> Result<Self> {
@@ -93,7 +93,7 @@ impl BrainConfig {
 
         config_file.read_to_string(&mut buffer)?;
 
-        let config: BrainConfig = serde_yaml::from_str(&buffer).unwrap();
+        let config: BrainConfig = toml::from_str(&buffer).unwrap();
 
         Ok(config)
     }
@@ -105,13 +105,13 @@ impl BrainConfig {
     /// ```
     /// use rustkov::prelude::BrainConfig;
     ///
-    /// config.to_file("path/to/config.yml").unwrap();
+    /// config.to_file("path/to/config.toml").unwrap();
     ///
     /// ```
     pub fn to_file(&self, config_path: &str) -> Result<()> {
         let mut config_file = OpenOptions::new().write(true).open(config_path)?;
 
-        let data = serde_yaml::to_string(&self).unwrap();
+        let data = toml::to_string(&self).unwrap();
 
         config_file.write(data.as_bytes())?;
 
